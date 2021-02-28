@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -22,15 +25,12 @@ import {
 import { Container, Content, Item, Input } from 'native-base';
 
 
-const RegisterStudent = () => {
+const RegisterStudent = ({navigation}) => {
     let [data, setData] = useState({
-        fullName: '',
-        fathersName: '',
-        contact: '',
         email: '',
-        city: '',
-        degreeTitle: '',
-        briefDescription: ''
+        password: '',
+        Cpassword: '',
+        userType: 'student'
     });
 
     return (
@@ -41,26 +41,6 @@ const RegisterStudent = () => {
 
             <Container>
                 <Content>
-                    <Item>
-                        <Input placeholder="Enter Full name"
-                            onChangeText={(e) => { setData({ ...data, fullName: e }) }}
-                            value={data.fullName}
-                        />
-                    </Item>
-
-                    <Item>
-                        <Input placeholder="Enter Father name"
-                            onChangeText={(e) => { setData({ ...data, fathersName: e }) }}
-                            value={data.fathersName}
-                        />
-                    </Item>
-
-                    <Item>
-                        <Input placeholder="Contact number"
-                            onChangeText={(e) => { setData({ ...data, contact: e }) }}
-                            value={data.contact}
-                        />
-                    </Item>
 
                     <Item>
                         <Input placeholder="Email"
@@ -70,37 +50,62 @@ const RegisterStudent = () => {
                     </Item>
 
                     <Item>
-                        <Input placeholder="City"
-                            onChangeText={(e) => { setData({ ...data, city: e }) }}
+                        <Input placeholder="Password"
+                            onChangeText={(e) => { setData({ ...data, password: e }) }}
                             value={data.city}
                         />
                     </Item>
 
                     <Item>
-                        <Input placeholder="Degree title"
-                            onChangeText={(e) => { setData({ ...data, degreeTitle: e }) }}
+                        <Input placeholder="confirm Password"
+                            onChangeText={(e) => { setData({ ...data, Cpassword: e }) }}
                             value={data.degreeTitle}
                         />
                     </Item>
 
-                    <Item>
-                        <Input placeholder="Brief Description"
-                            onChangeText={(e) => { setData({ ...data, briefDescription: e }) }}
-                            value={data.briefDescription}
-                        />
-                    </Item>
                 </Content>
             </Container>
 
             <Button
-                title="show data"
-                onPress={() => { console.log(data) }}
+                title="Register as student"
+                onPress={() => { console.log(data);
+                    RegisterUser(data.email, data.password, data, navigation);
+                }}
             />
 
         </>
     );
 };
 
+
+function RegisterUser(email, password, userDetail, navigation) {
+    auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((data) => {
+            console.log('User account created & signed in!');
+            if (data.additionalUserInfo.isNewUser === true) {
+                createDatabaseForUser(data.user.uid, userDetail);
+                Alert.alert('user registered successfully')
+                navigation.navigate('MainPage');
+            }
+        })
+        .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+                Alert.alert('Email already exists', 'That email address is already in use!');
+            }
+
+            if (error.code === 'auth/invalid-email') {
+                Alert.alert('invalid email', 'That email address is invalid!');
+            }
+
+            console.log(error);
+        });
+}
+
+function createDatabaseForUser(uid, userDetail){
+    database().ref('/'+uid).child('userDetail/userType').set(userDetail.userType)
+    // console.log(uid)
+}
 
 
 

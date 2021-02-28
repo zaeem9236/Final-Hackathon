@@ -1,5 +1,8 @@
 
 import React, { useState } from 'react';
+import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -23,6 +26,8 @@ import {
 
 
 const LoginPage = ({navigation}) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     return (
         <>
@@ -33,8 +38,8 @@ const LoginPage = ({navigation}) => {
                     height: 40, width: 200, borderBottomColor: 'pink', borderColor: "rgba(0,0,0,0)",
                     borderWidth: 1.2, marginTop: 50
                 }}
-                    // onChangeText={(email) => { setEmail(email) }}
-                    // value={email}
+                    onChangeText={(email) => { setEmail(email) }}
+                    value={email}
                     placeholder="Email"
                 />
 
@@ -42,8 +47,8 @@ const LoginPage = ({navigation}) => {
                     height: 40, width: 200, borderBottomColor: 'pink', borderColor: "rgba(0,0,0,0)",
                     borderWidth: 1.2, marginTop: 10
                 }}
-                    // onChangeText={(password) => { setPassword(password) }}
-                    // value={password}
+                    onChangeText={(password) => { setPassword(password) }}
+                    value={password}
                     placeholder="Password"
                 />
 
@@ -52,7 +57,9 @@ const LoginPage = ({navigation}) => {
             <View style={{ display:'flex', alignItems:'center'}}>
                 <Button
                     title="Login"
-                    onPress={() => navigation.navigate('MainPage')}
+                    onPress={() => {navigation.navigate('MainPage');
+                    LoginUser(email, password, navigation);
+                }}
                 />
             </View>
             
@@ -70,6 +77,21 @@ const LoginPage = ({navigation}) => {
         </>
     );
 };
+
+function LoginUser(email, password, navigation) {
+    auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((data) => {
+            console.log('logged in ...');
+            console.log(auth().currentUser)
+            navigation.navigate('MainPage')
+
+        })
+        .catch((error) => { console.log(error) })
+
+    // console.log('-------------------------------------as')
+    // console.log(auth().currentUser)
+}
 
 
 const styles = StyleSheet.create({

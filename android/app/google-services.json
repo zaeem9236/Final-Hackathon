@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "828614695300",
+    "project_id": "campus-recruitment-syste-60535",
+    "storage_bucket": "campus-recruitment-syste-60535.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828614695300:android:cc55fb3d10db4f0ca765d1",
+        "android_client_info": {
+          "package_name": "com.crs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828614695300-f7pv77qu9ffqp5nka545ukjentl3np99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvFxxj242LW16IXv3qqutexL04NN9zbLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828614695300-f7pv77qu9ffqp5nka545ukjentl3np99.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

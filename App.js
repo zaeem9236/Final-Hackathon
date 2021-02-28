@@ -36,10 +36,10 @@ const App = () => {
 
         <Stack.Navigator >
           <Stack.Screen name=" " component={LoginPage} options={{ headerShown: false}} />
-          <Stack.Screen name="MainPage" component={MainPage} options={{ headerShown: false}}/>
-          <Stack.Screen name="RegisterPage" component={RegisterPage} options={{ headerShown: false}}/>
-          <Stack.Screen name="RegisterStudent" component={RegisterStudent} options={{ headerShown: false}}/>
-          <Stack.Screen name="RegisterEmployer" component={RegisterEmployer} options={{ headerShown: false}}/>
+          <Stack.Screen name="MainPage" component={MainPage} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="RegisterPage" component={RegisterPage} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="RegisterStudent" component={RegisterStudent} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="RegisterEmployer" component={RegisterEmployer} /*options={{ headerShown: false}}*/ />
         </Stack.Navigator>
     
 
