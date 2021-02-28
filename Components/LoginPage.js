@@ -53,8 +53,13 @@ const LoginPage = ({navigation}) => {
                 <Button
                     title="Login"
                     onPress={() => navigation.navigate('MainPage')}
-
-                    
+                />
+            </View>
+            
+            <View style={{ display:'flex', alignItems:'center'}}>
+                <Button
+                    title="Register"
+                    onPress={() => navigation.navigate('RegisterPage')}  
                 />
             </View>
 

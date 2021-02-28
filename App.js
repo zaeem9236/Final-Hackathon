@@ -22,6 +22,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import MainPage from './Components/MainPage';
 import LoginPage from './Components/LoginPage';
+import RegisterPage from './Components/RegisterPage';
+import RegisterStudent from './Components/RegisterStudent';
+import RegisterEmployer from './Components/RegisterEmployer';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +37,9 @@ const App = () => {
         <Stack.Navigator >
           <Stack.Screen name=" " component={LoginPage} options={{ headerShown: false}} />
           <Stack.Screen name="MainPage" component={MainPage} options={{ headerShown: false}}/>
+          <Stack.Screen name="RegisterPage" component={RegisterPage} options={{ headerShown: false}}/>
+          <Stack.Screen name="RegisterStudent" component={RegisterStudent} options={{ headerShown: false}}/>
+          <Stack.Screen name="RegisterEmployer" component={RegisterEmployer} options={{ headerShown: false}}/>
         </Stack.Navigator>
     
 
