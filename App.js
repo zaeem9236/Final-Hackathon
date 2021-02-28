@@ -1,12 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -24,26 +17,28 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import MainPage from './Components/MainPage';
+import LoginPage from './Components/LoginPage';
+
+const Stack = createStackNavigator();
+
 const App = () => {
   return (
     <>
+    <NavigationContainer>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView>
-         
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One
-              zaeem here</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+
+        <Stack.Navigator >
+          <Stack.Screen name=" " component={LoginPage} options={{ headerShown: false}} />
+          <Stack.Screen name="MainPage" component={MainPage} options={{ headerShown: false}}/>
+        </Stack.Navigator>
+    
+
+    </NavigationContainer>
+  </>
   );
 };
 
