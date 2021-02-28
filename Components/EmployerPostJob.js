@@ -11,6 +11,7 @@ import {
     Button,
     TextInput,
     Alert,
+    TouchableOpacity
 } from 'react-native';
 
 import {
@@ -38,7 +39,7 @@ const EmployerPostJob = ({ naviagation }) => {
     });
 
     useEffect(() => {
-        
+
 
 
     }, []);
@@ -100,21 +101,35 @@ const EmployerPostJob = ({ naviagation }) => {
 
 
                 </Content>
-            </Container>
 
-            <Button
+                {/* <Button
                 title="Post"
                 onPress={() => {
-                        
-                            const key = database().ref('/students').push().key
-                            database().ref('/jobs/' + key).set(data)
-                                .then((data) => {
-                                    Alert.alert('job posted successfully')
-                                })
-                                
-                }}
+                    
+                    const key = database().ref('/students').push().key
+                    database().ref('/jobs/' + key).set(data)
+                        .then((data) => {
+                            Alert.alert('job posted successfully')
+                        })
 
-            />
+                }}
+                
+            /> */}
+
+                <View style={{ display: 'flex', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => {
+                        const key = database().ref('/students').push().key
+                        database().ref('/jobs/' + key).set(data)
+                            .then((data) => {
+                                Alert.alert('job posted successfully')
+                            })
+                    }}>
+                        <Text style={styles.postJob}
+
+                        >Post</Text>
+                    </TouchableOpacity>
+                </View>
+            </Container>
         </>
     );
 
@@ -134,6 +149,40 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    loginButton: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'green',
+        borderWidth: 2,
+        borderColor: 'rgb(30, 30, 47)',
+        borderRadius: 100,
+        paddingRight: 96,
+        paddingLeft: 96,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginTop: 100
+    },
+    postJob: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'rgb(46, 184, 46)',
+        borderWidth: 2,
+        borderColor: 'rgb(46, 184, 46)',
+        borderRadius: 10,
+        paddingRight: 90,
+        paddingLeft: 90,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginBottom: 10
+    },
+    inputField: {
+        height: 40,
+        width: 200,
+        borderBottomColor: 'rgb(30, 30, 47)',
+        borderColor: 'transparent',
+        borderWidth: 1.2,
+        marginTop: 50
     }
 });
 

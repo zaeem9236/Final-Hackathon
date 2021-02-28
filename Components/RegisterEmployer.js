@@ -12,6 +12,7 @@ import {
     Button,
     TextInput,
     Alert,
+    TouchableOpacity
 } from 'react-native';
 
 import {
@@ -25,7 +26,7 @@ import {
 import { Container, Content, Item, Input } from 'native-base';
 
 
-const RegisterEmployer = ({navigation}) => {
+const RegisterEmployer = ({ navigation }) => {
     let [data, setData] = useState({
         companyName: '',
         email: '',
@@ -37,9 +38,7 @@ const RegisterEmployer = ({navigation}) => {
 
     return (
         <>
-            <View>
-                <Text>This is Employer Registration page </Text>
-            </View>
+            
 
             <Container>
                 <Content>
@@ -50,7 +49,7 @@ const RegisterEmployer = ({navigation}) => {
                             value={data.companyName}
                         />
                     </Item>
-                    
+
                     <Item>
                         <Input placeholder="Email"
                             onChangeText={(e) => { setData({ ...data, email: e }) }}
@@ -73,14 +72,23 @@ const RegisterEmployer = ({navigation}) => {
                     </Item>
 
                 </Content>
-            </Container>
 
-            <Button
+                {/* <Button
                 title="Register as Employer"
-                onPress={() => { console.log(data);
+                onPress={() => {
+                    console.log(data);
                     RegisterUser(data.email, data.password, data, navigation);
                 }}
-            />
+            /> */}
+
+                <View style={{ display: 'flex', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => RegisterUser(data.email, data.password, data, navigation)}>
+                        <Text style={styles.postJob}
+
+                        >Register as Employer</Text>
+                    </TouchableOpacity>
+                </View>
+            </Container>
 
         </>
     );
@@ -111,8 +119,8 @@ function RegisterUser(email, password, userDetail, navigation) {
         });
 }
 
-function createDatabaseForUser(uid, userDetail){
-    database().ref('/'+uid).child('userDetail/').set({userType:userDetail.userType, name: userDetail.name, alreadyPosted: userDetail.alreadyPosted})
+function createDatabaseForUser(uid, userDetail) {
+    database().ref('/' + uid).child('userDetail/').set({ userType: userDetail.userType, name: userDetail.name, alreadyPosted: userDetail.alreadyPosted })
     // console.log(uid)
 }
 
@@ -128,6 +136,40 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    loginButton: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'green',
+        borderWidth: 2,
+        borderColor: 'rgb(30, 30, 47)',
+        borderRadius: 100,
+        paddingRight: 96,
+        paddingLeft: 96,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginTop: 100
+    },
+    postJob: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'rgb(46, 184, 46)',
+        borderWidth: 2,
+        borderColor: 'rgb(46, 184, 46)',
+        borderRadius: 10,
+        paddingRight: 40,
+        paddingLeft: 40,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginBottom: 13
+    },
+    inputField: {
+        height: 40,
+        width: 200,
+        borderBottomColor: 'rgb(30, 30, 47)',
+        borderColor: 'transparent',
+        borderWidth: 1.2,
+        marginTop: 50
     }
 });
 

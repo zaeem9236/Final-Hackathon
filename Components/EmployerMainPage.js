@@ -40,6 +40,8 @@ const EmployerMainPage = ({navigation}) => {
                     .once('value')
                     .then((data) => {
                         setPosted(data.val());
+                    }).catch((error)=>{
+                        console.log(error.code)
                     });
 
 
@@ -53,13 +55,20 @@ const EmployerMainPage = ({navigation}) => {
 
     return (
         <>
-        <View></View><Text style={{
+        <Text  style={{
             color: 'black',
             fontSize: 15,
             marginLeft: 'auto',
             marginRight: 10,
             marginTop: 5
-        }}>  Logout</Text>
+         }}
+         onPress={()=>{
+            auth()
+            .signOut()
+            .then(() => {navigation.navigate(' ');console.log('User signed out!')}).catch((error) => {
+                console.log(error.code)
+            })
+         }}>  Logout</Text>
             
             <View style={{ display: 'flex', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => navigation.navigate('EmployerPostJob')}>

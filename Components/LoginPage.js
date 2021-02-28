@@ -30,7 +30,7 @@ import {
 
 
 const LoginPage = ({ navigation }) => {
-    const [email, setEmail] = useState('beathas@gmail.com');
+    const [email, setEmail] = useState('zaeem123@live.com');
     const [password, setPassword] = useState('Qwertyu');
 
     return (

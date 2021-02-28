@@ -26,32 +26,54 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 
-const StudentJobView = ({navigation}) => {
-    let [posted, setPosted] = useState('false');
+const StudentJobView = ({ navigation }) => {
+    let [jobs, setJobs] = useState({});
 
     useEffect(() => {
         auth().onAuthStateChanged((user) => {
             if (user) {
-                database().ref('/' + user.uid + '/userDetail/alreadyPosted')
-                    .once('value')
-                    .then((data) => {
-                        setPosted(data.val());
+                database()
+                    .ref('/jobs/')
+                    .on('value', data => {
+                        // console.log('User data: ', snapshot.val());
+                        setJobs(data.val())
                     });
 
 
                 // console.log(user.uid);
             } else {
-                // console.log('no user found')
+                console.log('no user found')
             }
         });
 
     }, []);
 
+    let ObjKeys = Object.keys(jobs);
     return (
         <>
-            <View>
-                <Text>student can see jobs here</Text>
-            </View>
+            {/* <Button title="jobs print" onPress={() => {
+                console.log('== == == == == ==')
+                console.log(ObjKeys)
+            }} /> */}
+
+            <ScrollView>
+            {ObjKeys.reverse().map(function (ObjKey, index) {
+                return (
+                    <Text key={index}>
+                        <Text>{`Company Name: ${jobs[ObjKey].companyName}\r\n`}</Text>
+                        <Text>{`Company Location: ${jobs[ObjKey].companyLocation}\r\n`}</Text>
+                        <Text>{`Job Tile: ${jobs[ObjKey].jobTitle}\r\n`}</Text>
+                        <Text>{`Contact: ${jobs[ObjKey].contact}\r\n`}</Text>
+                        <Text>{`Email: ${jobs[ObjKey].email}\r\n`}</Text>
+                        <Text>{`Website: ${jobs[ObjKey].website}\r\n`}</Text>
+                        <Text>{`Description: ${jobs[ObjKey].website}\r\n`}</Text>
+                        <Text>{`--------------------------------------------------\r\n`}</Text>
+                    </Text>
+
+            )})
+                }
+            </ScrollView>
+
         </>
     );
 

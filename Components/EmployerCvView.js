@@ -26,32 +26,54 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 
-const EmployerCvView = ({navigation}) => {
-    let [posted, setPosted] = useState('false');
+const EmployerCvView = ({ navigation }) => {
+    let [jobs, setJobs] = useState({});
 
     useEffect(() => {
         auth().onAuthStateChanged((user) => {
             if (user) {
-                database().ref('/' + user.uid + '/userDetail/alreadyPosted')
-                    .once('value')
-                    .then((data) => {
-                        setPosted(data.val());
+                database()
+                    .ref('/students/')
+                    .on('value', data => {
+                        // console.log('User data: ', snapshot.val());
+                        setJobs(data.val())
                     });
 
 
                 // console.log(user.uid);
             } else {
-                // console.log('no user found')
+                console.log('no user found')
             }
         });
 
     }, []);
 
+    let ObjKeys = Object.keys(jobs);
     return (
         <>
-            <View>
-                <Text>Employer Cv view page</Text>
-            </View>
+            {/* <Button title="jobs print" onPress={() => {
+                console.log('== == == == == ==')
+                console.log(ObjKeys)
+            }} /> */}
+
+            <ScrollView>
+            {ObjKeys.reverse().map(function (ObjKey, index) {
+                return (
+                    <Text key={index}>
+                        <Text>{`Full Name: ${jobs[ObjKey].fullName}\r\n`}</Text>
+                        <Text>{`Fathers Name: ${jobs[ObjKey].FathersName}\r\n`}</Text>
+                        <Text>{`Degree title: ${jobs[ObjKey].degreeTitle}\r\n`}</Text>
+                        <Text>{`Contact: ${jobs[ObjKey].contact}\r\n`}</Text>
+                        <Text>{`Email: ${jobs[ObjKey].email}\r\n`}</Text>
+                        <Text>{`City: ${jobs[ObjKey].city}\r\n`}</Text>
+                        <Text>{`Description: ${jobs[ObjKey].briefDescription}\r\n`}</Text>
+                        <Text>{`--------------------------------------------------\r\n`}</Text>
+                    </Text>
+
+            )})
+                }
+            </ScrollView>
+
         </>
     );
 

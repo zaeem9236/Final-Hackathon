@@ -15,6 +15,7 @@ import {
     Button,
     TextInput,
     Alert,
+    TouchableOpacity
 } from 'react-native';
 
 import {
@@ -49,20 +50,36 @@ const StudentMainPage = ({navigation}) => {
 
     return (
         <>
-            <View>
-                <Text>student main page ha ha</Text>
-                <Button
-                    title="post CV"
-                    onPress={() => {
-                        navigation.navigate('StudentPostCv');
-                    }}
-                />
-                <Button
-                    title="search for Jobs"
-                    onPress={() => {
-                        navigation.navigate('StudentJobView');
-                    }}
-                />
+        <Text  style={{
+            color: 'black',
+            fontSize: 15,
+            marginLeft: 'auto',
+            marginRight: 10,
+            marginTop: 5
+         }}
+         onPress={()=>{
+            auth()
+            .signOut()
+            .then(() => {navigation.navigate(' ');console.log('User signed out!')}).catch((error) => {
+                console.log(error.code)
+            })
+         }}>  Logout</Text>
+            
+
+            <View style={{ display: 'flex', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.navigate('StudentPostCv')}>
+                    <Text style={styles.postJob}
+
+                    >Post CV</Text>
+                </TouchableOpacity>
+            </View>
+            
+            <View style={{ display: 'flex', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.navigate('StudentJobView')}>
+                    <Text style={styles.postJob}
+
+                    >Search Job</Text>
+                </TouchableOpacity>
             </View>
         </>
     );
@@ -83,6 +100,40 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    loginButton: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'green',
+        borderWidth: 2,
+        borderColor: 'rgb(30, 30, 47)',
+        borderRadius: 100,
+        paddingRight: 96,
+        paddingLeft: 96,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginTop: 100
+    },
+    postJob: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'rgb(0, 153, 153)',
+        borderWidth: 2,
+        borderColor: 'rgb(0, 153, 153)',
+        borderRadius: 100,
+        paddingRight: 90,
+        paddingLeft: 90,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginTop: 70
+    },
+    inputField: {
+        height: 40,
+        width: 200,
+        borderBottomColor: 'rgb(30, 30, 47)',
+        borderColor: 'transparent',
+        borderWidth: 1.2,
+        marginTop: 50
     }
 });
 

@@ -63,7 +63,6 @@ const MainPage = ({navigation}) => {
         return (
             <>
                 <View>
-                    <Text>employer Detected </Text>
                     <EmployerMainPage navigation={navigation}/>
                 </View>
             </>
