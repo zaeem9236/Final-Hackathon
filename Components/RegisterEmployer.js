@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -22,53 +25,32 @@ import {
 import { Container, Content, Item, Input } from 'native-base';
 
 
-const RegisterEmployer = () => {
+const RegisterEmployer = ({navigation}) => {
     let [data, setData] = useState({
         companyName: '',
-        companyLocation: '',
-        jobTitle: '',
-        contact: '',
         email: '',
-        companyWeb: '',
-        briefDescription: ''
+        password: '',
+        Cpassword: '',
+        alreadyPosted: 'false',
+        userType: 'employer'
     });
 
     return (
         <>
             <View>
-                <Text>This is Register RegisterEmployer page </Text>
+                <Text>This is Employer Registration page </Text>
             </View>
 
             <Container>
                 <Content>
+
                     <Item>
-                        <Input placeholder="Enter company name"
+                        <Input placeholder="Company Name"
                             onChangeText={(e) => { setData({ ...data, companyName: e }) }}
                             value={data.companyName}
                         />
                     </Item>
-
-                    <Item>
-                        <Input placeholder="Enter company location"
-                            onChangeText={(e) => { setData({ ...data, companyLocation: e }) }}
-                            value={data.companyLocation}
-                        />
-                    </Item>
-
-                    <Item>
-                        <Input placeholder="job title"
-                            onChangeText={(e) => { setData({ ...data, jobTitle: e }) }}
-                            value={data.jobTitle}
-                        />
-                    </Item>
-
-                    <Item>
-                        <Input placeholder="contact"
-                            onChangeText={(e) => { setData({ ...data, contact: e }) }}
-                            value={data.contact}
-                        />
-                    </Item>
-
+                    
                     <Item>
                         <Input placeholder="Email"
                             onChangeText={(e) => { setData({ ...data, email: e }) }}
@@ -76,33 +58,63 @@ const RegisterEmployer = () => {
                         />
                     </Item>
 
-
                     <Item>
-                        <Input placeholder="Website"
-                            onChangeText={(e) => { setData({ ...data, companyWeb: e }) }}
-                            value={data.companyWeb}
+                        <Input placeholder="Password"
+                            onChangeText={(e) => { setData({ ...data, password: e }) }}
+                            value={data.city}
                         />
                     </Item>
 
                     <Item>
-                        <Input placeholder="Description"
-                            onChangeText={(e) => { setData({ ...data, briefDescription: e }) }}
-                            value={data.briefDescription}
+                        <Input placeholder="confirm Password"
+                            onChangeText={(e) => { setData({ ...data, Cpassword: e }) }}
+                            value={data.degreeTitle}
                         />
                     </Item>
+
                 </Content>
             </Container>
 
             <Button
-                title="show data"
-                onPress={() => { console.log(data) }}
+                title="Register as Employer"
+                onPress={() => { console.log(data);
+                    RegisterUser(data.email, data.password, data, navigation);
+                }}
             />
-
 
         </>
     );
 };
 
+
+function RegisterUser(email, password, userDetail, navigation) {
+    auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((data) => {
+            console.log('User account created & signed in!');
+            if (data.additionalUserInfo.isNewUser === true) {
+                createDatabaseForUser(data.user.uid, userDetail);
+                Alert.alert('user registered successfully')
+                navigation.navigate('MainPage');
+            }
+        })
+        .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+                Alert.alert('Email already exists', 'That email address is already in use!');
+            }
+
+            if (error.code === 'auth/invalid-email') {
+                Alert.alert('invalid email', 'That email address is invalid!');
+            }
+
+            console.log(error);
+        });
+}
+
+function createDatabaseForUser(uid, userDetail){
+    database().ref('/'+uid).child('userDetail/').set({userType:userDetail.userType, name: userDetail.name, alreadyPosted: userDetail.alreadyPosted})
+    // console.log(uid)
+}
 
 
 

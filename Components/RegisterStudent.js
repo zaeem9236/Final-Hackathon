@@ -27,9 +27,11 @@ import { Container, Content, Item, Input } from 'native-base';
 
 const RegisterStudent = ({navigation}) => {
     let [data, setData] = useState({
+        name: '',
         email: '',
         password: '',
         Cpassword: '',
+        alreadyPosted: 'false',
         userType: 'student'
     });
 
@@ -42,6 +44,13 @@ const RegisterStudent = ({navigation}) => {
             <Container>
                 <Content>
 
+                    <Item>
+                        <Input placeholder="Name"
+                            onChangeText={(e) => { setData({ ...data, name: e }) }}
+                            value={data.name}
+                        />
+                    </Item>
+                    
                     <Item>
                         <Input placeholder="Email"
                             onChangeText={(e) => { setData({ ...data, email: e }) }}
@@ -103,7 +112,7 @@ function RegisterUser(email, password, userDetail, navigation) {
 }
 
 function createDatabaseForUser(uid, userDetail){
-    database().ref('/'+uid).child('userDetail/userType').set(userDetail.userType)
+    database().ref('/'+uid).child('userDetail/').set({userType:userDetail.userType, name: userDetail.name, alreadyPosted: userDetail.alreadyPosted})
     // console.log(uid)
 }
 

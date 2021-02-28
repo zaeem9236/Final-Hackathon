@@ -1,4 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
+
+import StudentMainPage from './StudentMainPage'
+import EmployerMainPage from './EmployerMainPage'
+
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -20,17 +27,55 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 
-const MainPage = () => {
+const MainPage = ({navigation}) => {
+    let [userType, setUserType] = useState('');
 
-    return (
-        <>
-            <View>
-                <Text>This is main page </Text>
-            </View>
+    useEffect(() => {
+        auth().onAuthStateChanged((user) => {
+            if (user) {
+                database().ref('/' + user.uid + '/userDetail/userType')
+                    .once('value')
+                    .then((data) => {
+                        setUserType(data.val());
+                    });
+                    // {changePage(navigation)}
 
 
-        </>
-    );
+                console.log(user.uid);
+            } else {
+                console.log('no user found')
+            }
+        });
+
+    }, []);
+
+    if (userType === 'student') {
+        return (
+            <>
+                <View>
+                    <StudentMainPage navigation={navigation}/>
+                </View>
+            </>
+        );
+    }
+    else if (userType === 'employer') {
+        return (
+            <>
+                <View>
+                    <Text>employer Detected </Text>
+                    <EmployerMainPage navigation={navigation}/>
+                </View>
+            </>
+        );
+    }else {
+        return (
+            <>
+                <View>
+                    <Text>Loading please wait </Text>
+                </View>
+            </>
+        );
+    }
 };
 
 

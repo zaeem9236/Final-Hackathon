@@ -25,6 +25,10 @@ import LoginPage from './Components/LoginPage';
 import RegisterPage from './Components/RegisterPage';
 import RegisterStudent from './Components/RegisterStudent';
 import RegisterEmployer from './Components/RegisterEmployer';
+import StudentMainPage from './Components/StudentMainPage';
+import StudentPostCv from './Components/StudentPostCv';
+import EmployerMainPage from './Components/EmployerMainPage';
+import EmployerPostJob from './Components/EmployerPostJob';
 
 const Stack = createStackNavigator();
 
@@ -36,10 +40,14 @@ const App = () => {
 
         <Stack.Navigator >
           <Stack.Screen name=" " component={LoginPage} options={{ headerShown: false}} />
-          <Stack.Screen name="MainPage" component={MainPage} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="MainPage" component={MainPage} options={{ headerShown: false}} />
           <Stack.Screen name="RegisterPage" component={RegisterPage} /*options={{ headerShown: false}}*/ />
           <Stack.Screen name="RegisterStudent" component={RegisterStudent} /*options={{ headerShown: false}}*/ />
           <Stack.Screen name="RegisterEmployer" component={RegisterEmployer} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="StudentMainPage" component={StudentMainPage} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="StudentPostCv" component={StudentPostCv} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="EmployerMainPage" component={EmployerMainPage} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="EmployerPostJob" component={EmployerPostJob} /*options={{ headerShown: false}}*/ />
         </Stack.Navigator>
     
 
