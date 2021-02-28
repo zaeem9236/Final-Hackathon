@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 
+import Spinner from './NativeBase/Spinner';
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -14,6 +16,8 @@ import {
     TextInput,
     Alert,
     AppRegistry,
+    TouchableHighlight,
+    TouchableOpacity
 } from 'react-native';
 
 import {
@@ -25,28 +29,22 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 
-const LoginPage = ({navigation}) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const LoginPage = ({ navigation }) => {
+    const [email, setEmail] = useState('beathas@gmail.com');
+    const [password, setPassword] = useState('Qwertyu');
 
     return (
         <>
             <View style={{ display: 'flex', alignItems: 'center' }}>
-                
 
-                <TextInput style={{
-                    height: 40, width: 200, borderBottomColor: 'pink', borderColor: "rgba(0,0,0,0)",
-                    borderWidth: 1.2, marginTop: 50
-                }}
+
+                <TextInput style={styles.inputField}
                     onChangeText={(email) => { setEmail(email) }}
                     value={email}
                     placeholder="Email"
                 />
 
-                <TextInput style={{
-                    height: 40, width: 200, borderBottomColor: 'pink', borderColor: "rgba(0,0,0,0)",
-                    borderWidth: 1.2, marginTop: 10
-                }}
+                <TextInput style={styles.inputField}
                     onChangeText={(password) => { setPassword(password) }}
                     value={password}
                     placeholder="Password"
@@ -54,21 +52,35 @@ const LoginPage = ({navigation}) => {
 
             </View>
 
-            <View style={{ display:'flex', alignItems:'center'}}>
-                <Button
-                    title="Login"
-                    onPress={() => {navigation.navigate('MainPage');
-                    LoginUser(email, password, navigation);
-                }}
-                />
+            <View style={{ display: 'flex', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => {
+                    if (email !== '' && password !== '') {
+                        LoginUser(email, password, navigation);
+                    }
+                }}>
+                    <Text style={styles.loginButton}
+                    > Login</Text>
+                </TouchableOpacity>
             </View>
-            
-            <View style={{ display:'flex', alignItems:'center'}}>
-                <Button
-                    title="Register"
-                    onPress={() => navigation.navigate('RegisterPage')}  
-                />
+
+            <View style={{ display: 'flex', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.navigate('RegisterPage')}>
+                    <Text style={styles.registerButton}
+
+                    >Register</Text>
+                </TouchableOpacity>
+
             </View>
+
+            {/* <View>
+                <TouchableOpacity  onPress={()=>{console.log('f')}} >
+                    <Text 
+style={styles.registerButton}
+                    >Register</Text>
+                </TouchableOpacity>
+                </View> */}
+
+            {/* <OutlineButton /> */}
 
             {/* <Button
                 title="Click to sign up"
@@ -79,15 +91,14 @@ const LoginPage = ({navigation}) => {
 };
 
 function LoginUser(email, password, navigation) {
-    auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((data) => {
-            console.log('logged in ...');
-            console.log(auth().currentUser)
-            navigation.navigate('MainPage')
+    console.log(email);
+    console.log(password);
+    auth().signInWithEmailAndPassword(email, password).then((data) => {
+        console.log(data)
+        navigation.navigate('MainPage')
 
-        })
-        .catch((error) => { console.log(error) })
+    })
+        .catch((error) => { Alert.alert(error.code) })
 
     // console.log('-------------------------------------as')
     // console.log(auth().currentUser)
@@ -104,6 +115,40 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    loginButton: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'green',
+        borderWidth: 2,
+        borderColor: 'rgb(30, 30, 47)',
+        borderRadius: 100,
+        paddingRight: 96,
+        paddingLeft: 96,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginTop: 100
+    },
+    registerButton: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'rgb(30, 30, 47)',
+        borderWidth: 2,
+        borderColor: 'rgb(30, 30, 47)',
+        borderRadius: 100,
+        paddingRight: 90,
+        paddingLeft: 90,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginTop: 30
+    },
+    inputField: {
+        height: 40,
+        width: 200,
+        borderBottomColor: 'rgb(30, 30, 47)',
+        borderColor: 'transparent',
+        borderWidth: 1.2,
+        marginTop: 50
     }
 });
 

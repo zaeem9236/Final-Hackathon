@@ -26,7 +26,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 
-const StudentMainPage = ({navigation}) => {
+const EmployerCvView = ({navigation}) => {
     let [posted, setPosted] = useState('false');
 
     useEffect(() => {
@@ -50,19 +50,7 @@ const StudentMainPage = ({navigation}) => {
     return (
         <>
             <View>
-                <Text>student main page ha ha</Text>
-                <Button
-                    title="post CV"
-                    onPress={() => {
-                        navigation.navigate('StudentPostCv');
-                    }}
-                />
-                <Button
-                    title="search for Jobs"
-                    onPress={() => {
-                        navigation.navigate('StudentJobView');
-                    }}
-                />
+                <Text>Employer Cv view page</Text>
             </View>
         </>
     );
@@ -86,4 +74,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default StudentMainPage;
+export default EmployerCvView;

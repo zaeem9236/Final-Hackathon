@@ -5,6 +5,7 @@ import database from '@react-native-firebase/database';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -15,15 +16,18 @@ import {
     Button,
     TextInput,
     Alert,
+    TouchableOpacity
 } from 'react-native';
 
 import {
-    Header,
     LearnMoreLinks,
     Colors,
     DebugInstructions,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import {Header} from 'native-base';
+
 
 
 const EmployerMainPage = ({navigation}) => {
@@ -49,20 +53,29 @@ const EmployerMainPage = ({navigation}) => {
 
     return (
         <>
-            <View>
-                <Text>Employer main page</Text>
-                <Button
-                    title="post JOB"
-                    onPress={() => {
-                        navigation.navigate('EmployerPostJob');
-                    }}
-                />
-                {/* <Button
-                    title="post CV"
-                    onPress={() => {
-                        navigation.navigate('StudentPostCv');
-                    }}
-                /> */}
+        <View></View><Text style={{
+            color: 'black',
+            fontSize: 15,
+            marginLeft: 'auto',
+            marginRight: 10,
+            marginTop: 5
+        }}>  Logout</Text>
+            
+            <View style={{ display: 'flex', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.navigate('EmployerPostJob')}>
+                    <Text style={styles.postJob}
+
+                    >Post Job</Text>
+                </TouchableOpacity>
+            </View>
+            
+            
+            <View style={{ display: 'flex', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.navigate('EmployerCvView')}>
+                    <Text style={styles.postJob}
+
+                    >View Cvs'</Text>
+                </TouchableOpacity>
             </View>
         </>
     );
@@ -83,6 +96,40 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    loginButton: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'green',
+        borderWidth: 2,
+        borderColor: 'rgb(30, 30, 47)',
+        borderRadius: 100,
+        paddingRight: 96,
+        paddingLeft: 96,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginTop: 100
+    },
+    postJob: {
+        fontSize: 19,
+        backgroundColor: 'transparent',
+        color: 'rgb(0, 153, 153)',
+        borderWidth: 2,
+        borderColor: 'rgb(0, 153, 153)',
+        borderRadius: 100,
+        paddingRight: 90,
+        paddingLeft: 90,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginTop: 70
+    },
+    inputField: {
+        height: 40,
+        width: 200,
+        borderBottomColor: 'rgb(30, 30, 47)',
+        borderColor: 'transparent',
+        borderWidth: 1.2,
+        marginTop: 50
     }
 });
 

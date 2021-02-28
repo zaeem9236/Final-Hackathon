@@ -30,6 +30,10 @@ import StudentPostCv from './Components/StudentPostCv';
 import EmployerMainPage from './Components/EmployerMainPage';
 import EmployerPostJob from './Components/EmployerPostJob';
 
+import StudentJobView from './Components/StudentJobView';
+import EmployerCvView from './Components/EmployerCvView';
+
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -48,6 +52,8 @@ const App = () => {
           <Stack.Screen name="StudentPostCv" component={StudentPostCv} /*options={{ headerShown: false}}*/ />
           <Stack.Screen name="EmployerMainPage" component={EmployerMainPage} /*options={{ headerShown: false}}*/ />
           <Stack.Screen name="EmployerPostJob" component={EmployerPostJob} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="StudentJobView" component={StudentJobView} /*options={{ headerShown: false}}*/ />
+          <Stack.Screen name="EmployerCvView" component={EmployerCvView} /*options={{ headerShown: false}}*/ />
         </Stack.Navigator>
     
 

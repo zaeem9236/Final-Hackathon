@@ -5,6 +5,7 @@ import database from '@react-native-firebase/database';
 import StudentMainPage from './StudentMainPage'
 import EmployerMainPage from './EmployerMainPage'
 
+import Spinner from './NativeBase/Spinner';
 
 import {
     SafeAreaView,
@@ -70,9 +71,7 @@ const MainPage = ({navigation}) => {
     }else {
         return (
             <>
-                <View>
-                    <Text>Loading please wait </Text>
-                </View>
+                    <Spinner />        
             </>
         );
     }
